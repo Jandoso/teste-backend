@@ -9,10 +9,10 @@
 - Mongo DB
 
 ### Endpoints
-POST dealers/register
-POST dealers/login
-POST purchases/
-PUT purchases/:purchaseCode
-DELETE purchases/:purchaseCode
+POST dealers/register</br>
+POST dealers/login</br>
+POST purchases/</br>
+PUT purchases/:purchaseCode</br>
+DELETE purchases/:purchaseCode</br>
 GET purchases/:purchaseCode
 
