@@ -12,7 +12,7 @@
 POST dealers/register
 POST dealers/login
 POST purchases/
-PUT purchases/:code
-DELETE purchases/:code
-GET purchases/:code
+PUT purchases/:purchaseCode
+DELETE purchases/:purchaseCode
+GET purchases/:purchaseCode
 
