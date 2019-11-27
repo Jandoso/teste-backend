@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const DealersSchema = new mongoose.Schema ({
+const RepresentativesSchema = new mongoose.Schema ({
     fullName: { type: String, required: true },
     cpf: { type: Number, required: true },
     email: { type: String, required: true },
@@ -9,6 +9,6 @@ const DealersSchema = new mongoose.Schema ({
     versionKey: false
 });
 
-const Dealers = mongoose.model('Dealers', DealersSchema);
+const Representatives = mongoose.model('Representatives', RepresentativesSchema);
 
-module.exports = Dealers;
+module.exports = Representatives;
