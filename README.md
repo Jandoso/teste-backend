@@ -6,11 +6,14 @@
   - Mongoose
   - Bcrypt
   - Body-Parser
+  - Joi
+  - Request
 - Mongo DB
 
 ### Endpoints
-POST dealers/register</br>
-POST dealers/login</br>
+POST representatives/register</br>
+POST representatives/login</br>
+GET representatives/cashback/:representativeCpf
 POST purchases/</br>
 PUT purchases/:purchaseCode</br>
 DELETE purchases/:purchaseCode</br>
