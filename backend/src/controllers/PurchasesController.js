@@ -19,7 +19,8 @@ exports.post = (req, res) => {
 };
 
 exports.get = (req, res) => {
-    const purchaseCode = req.params.purchaseCode;
+    try {
+        const purchaseCode = req.params.purchaseCode;
 
     Purchases.find({ code: purchaseCode }, (err, purchase) => {
         if (err) res.status(500).send(500);
@@ -36,33 +37,37 @@ exports.get = (req, res) => {
         })
         res.status(200).send(purchaseReturn);
     });
-
+    } catch (e) {
+        return res.status(401).send(e);
+    };
 };
 
 exports.delete = (req, res) => {
-    const purchaseCode = req.params.purchaseCode;
+    try{
+        const purchaseCode = req.params.purchaseCode;
+        Purchases.findOne({ code: purchaseCode }, (err, purchase) => {
+            if(err) res.status(500).send(err);
     
-    Purchases.findOne({ code: purchaseCode }, (err, purchase) => {
-        if(err) res.status(500).send(err);
-
-        if(!purchase) return res.status(200).send({ message: `Purchases with code ${purchaseCode} was not found`});
-
-        if(purchase.status == "Em validação") {
-            purchase.remove( err => {
-                if(!err){
-                    res.status(200).send({ message: `Purchases code ${purchaseCode} was deleted`});
-                };
-            });
-
-        } else {
-            res.send({ messagem: 'Is not possible to delete an approved purchase'})
-        }
-
-      
-    });
+            if(!purchase) return res.status(200).send({ message: `Purchases with code ${purchaseCode} was not found`});
+    
+            if(purchase.status == "Em validação") {
+                purchase.remove( err => {
+                    if(!err){
+                        res.status(200).send({ message: `Purchases code ${purchaseCode} was deleted`});
+                    };
+                });
+    
+            } else {
+                res.send({ messagem: 'Is not possible to delete an approved purchase'})
+            };
+        });
+    } catch (e) {
+        return res.status(401).send(e);
+    };
 };
 
 exports.put = (req, res) => {
+    try{
  if(!validateForm(req.body)) return res.status(400).send({ message: "Invalid fields" });
 
  const purchaseCode = req.params.purchaseCode;
@@ -86,6 +91,9 @@ exports.put = (req, res) => {
             res.send({ messagem: 'Is not possible to update an approved purchase'})
         }
     });
+    } catch (e) {
+        return res.status(401).send(e);
+    }
 };
 
 const validateForm = (fields) => {

@@ -1,5 +1,6 @@
 const Dealers = require('../models/dealers');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 exports.postRegister = async (req, res) => {
     try {
@@ -21,10 +22,36 @@ exports.postRegister = async (req, res) => {
     };
 };
 
-exports.postLogin = async (req, res) => {
-    const dealer = Dealers.findOne({ email: req.body.email });
+exports.postLogin =  async (req, res) => {
+    const { email } = req.body;
+    const dealer = Dealers.findOne({ email });
 
-    res.send(dealer);
+    if(!dealer){
+        return res.status(401).send({ error: 'user not find'});
+    }
+
+    const {id, emailDealer} = dealer;
+
+    try{
+        if(await bcrypt.compare(req.body.password, dealer.password)) {
+            res.send('Success')
+        } else {
+            res.send('Not Allowed')
+        }
+        // return res.send({
+        //     dealer: {
+        //         id,
+        //         emailDealer,
+        //     },
+        //     // token: jwt.sign({ id }, authConfig.secret, {
+            //     expiresIn: authConfig.expiresIn,
+            //}),
+        // });
+    }catch (e){
+        return res.status(401).send({ error: 'error' });
+    };
+
+    res.send({email});
 /*    if(dealer == null) {
         return res.status(400).send('Cannot find user')
     };

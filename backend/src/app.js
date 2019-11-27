@@ -7,7 +7,7 @@ const dealers = require('./routes/dealersRoutes');
 const purchases = require('./routes/purchasesRoutes');
 
 
-mongoose.connect('mongodb://localhost:27017/boticario', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://jandosoGeneral:12345@omnistack-34kgb.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.log.bind(console, 'Connection error: '));
 db.once("open", () => {
